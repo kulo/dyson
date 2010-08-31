@@ -1,0 +1,46 @@
+# dyson - an absorbing SMTP server
+
+version 1.1.beta, currently under development, 2010
+
+This software is distributed under the terms of the FSF Lesser Gnu
+Public License (see COPYING.LESSER and COPYING). Since the LGPL 
+is a set of additional permissions on top of the GPL this 
+license is also included in the file 'COPYING'.
+
+## What is dyson?
+
+Dyson's a simple mail server whose sole aim is to receive mails 
+over the SMTP protocol and to store them persistently as quickly as possible (sic!).
+
+The name "dyson" is inspired by [freeman dyson](http://en.wikipedia.org/wiki/Freeman_Dyson) 
+and his theory of a [Dyson Sphere](href="http://en.wikipedia.org/wiki/Dyson_sphere), 
+i.e. a structure that is meant to completely encompass a star and capture most 
+or all of its energy output.
+Think of the dyson MTA as a dyson sphere for mailing environments.
+
+## How to build dyson?
+
+  $> sbt clean compile package jarjar
+
+### Dependencies & Requirements
+
+ * java sdk & vm 1.6.0 or higher
+ * sbt 0.7.4 or higher
+ * TODO
+
+## How to run dyson?
+
+  $> sbt run
+  
+or 
+ 
+  $> ./dyson.sh
+
+see the javadocs of com.emarsys.Dyson for further details.
+
+## TODOs and Open Issues
+
+ 1. TestNG Tests are not executed via sbt
+ 2. ecommon is a static dependency via /lib/ecommon-TRUNK.jar
+ 
+ 

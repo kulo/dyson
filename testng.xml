@@ -1,0 +1,7 @@
+<suite name="dyson-test-suite" verbose="1">
+        <test name="dyson">
+                <packages>
+                    <package name="com.emarsys.dyson" />
+                </packages>
+        </test>
+</suite>
