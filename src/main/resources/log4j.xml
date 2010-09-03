@@ -43,7 +43,7 @@
 	</category>
 
 	<category name="com.emarsys.dyson">
-		<priority value="DEBUG" />
+		<priority value="INFO" />
 	</category>
 
 
