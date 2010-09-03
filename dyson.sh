@@ -11,7 +11,7 @@ if [ -n "$JAR" -a -f "$JAR" ]
 then
   echo "executing dyson ($JAR)..."
 else
-  echo "cannot find dyson jarjar: $JAR" 
+  echo "cannot find dyson jarjar: $JAR. you may consider running: \$> sbt package jarjar" 
   exit 1
 fi
 
