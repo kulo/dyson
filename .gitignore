@@ -1,0 +1,18 @@
+
+# ignore the following files
+
+# sbt's managed libs dir
+lib_managed
+
+# sbt's project boot dir
+project/boot
+
+# sbt's build targed dir
+project/build/target
+
+# sbt's targed directory
+target
+
+# local tmp directory
+tmp
+
