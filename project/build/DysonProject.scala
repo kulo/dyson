@@ -3,7 +3,9 @@ import sbt._
 	class   DysonProject( info : ProjectInfo ) 
 	extends DefaultProject(info)
 	with    TestNGTestingProject 
-	with    JarJarable {
+	with    Eclipsify
+        with    JarJarable 
+        {
 	    
 	    val emarsysNexus = "emarsys Nexus" at "http://nexus.emarsys.com/content/groups/public"
 	    
