@@ -22,6 +22,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 
+import org.restlet.Component;
 import org.restlet.Server;
 import org.subethamail.smtp.MessageListener;
 import org.subethamail.smtp.server.SMTPServer;
@@ -42,7 +43,7 @@ import com.emarsys.ecommon.prefs.config.ISetting;
  * as quickly as possible (sic!).
  * </p><p>
  * the name "dyson" is inspired by 
- * <a href="http://en.wikipedia.org/wiki/Freeman_Dyson">freeman dyson</a> 
+ * <a href="http://en.wikipedia.org/wiki/Freeman_Dyson">Freeman Dyson</a> 
  * and his theory of a <a href="http://en.wikipedia.org/wiki/Dyson_sphere"> 
  * dyson sphere</a>, i.e. a structure that is meant to completely 
  * encompass a star and capture most or all of its energy output. 
@@ -64,20 +65,14 @@ import com.emarsys.ecommon.prefs.config.ISetting;
  * <ul>
  * 	<li>the Subethamail {@link #getSmtpServer() SMTPServer} (42!)</li>
  *  <li>the {@link #getStorage() DysonStorage}</li>
- *  <li>and the {@link #getRestletServer() RESTlet Server}</li>
+ *  <li>and the {@link #getRestComponent() RESTlet Component}</li>
  * </ul>
  * </p><p>
  * the SMTP component is responsible for listening on the specified
- * port, receiving emails and passing the incomming data stream to
+ * port, receiving email and passing the incoming data stream to
  * {@link DysonMessageListener message listeners} which will handle any 
  * further actions.
- * </p><p>
- * 
  * </p><p>  
- * Where the {@link DysonStorage} finally puts the mail files is 
- * up to its concrete implementation as well as its associated 
- * {@link MailStorageFileNamingScheme}.
- * <br/>
  * Either the concrete {@link DysonStorage} implementation either
  * its {@link MessageListener} as well as concrete 
  * {@link MailStorageFileNamingScheme} implementations are 
@@ -112,7 +107,7 @@ public interface Dyson extends DysonConfig, Configurable
 	/**
 	 * @return the {@link Server RESTlet Server}, never <code>null</code>
 	 */
-	Server getRestletServer();
+	Component getRestComponent();
 	
 	/**
 	 * @return the {@link DysonStatistics}, never <code>null</code>

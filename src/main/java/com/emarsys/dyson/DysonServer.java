@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.mail.Session;
 import javax.mail.Transport;
 
-import org.restlet.Server;
+import org.restlet.Component;
 import org.restlet.data.Protocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,9 +89,9 @@ public class DysonServer
 	 */
 	protected Collection<MessageListener> msgListeners;
 	/**
-	 * The RESTlet server to access runtime information.
+	 * The RESTlet {@link Component} exposed by dyson.
 	 */
-	protected Server restServer;
+	protected Component restComponent;
 	
 	//runtime information
 	protected Calendar startTime = null;
@@ -327,10 +327,15 @@ public class DysonServer
 		
 		int port = this.getConfiguration().get( REST_SERVER_PORT ).getIntValue();
 		
-		DysonRestlet rootRestlet = 
-			this.newDysonPart( REST_SERVER_ROOT_RESTLET_CLASS, DysonRestlet.class );
+		DysonRestApp app = 
+			this.newDysonPart( REST_APPLICATION_CLASS, DysonRestApp.class );
 		
-		this.restServer = new Server( Protocol.HTTP, port, rootRestlet );
+//		this.restServer = new Server( Protocol.HTTP, port, app );
+		Component component = new Component();
+		component.getServers().add( Protocol.HTTP, port );
+		component.getClients().add( Protocol.FILE );
+		component.getDefaultHost().attach( app );
+		this.restComponent = component;
 	}
 	
 	/**
@@ -380,11 +385,11 @@ public class DysonServer
 	}
 	
 	/**
-	 * @see Dyson#getRestletServer()
+	 * @see Dyson#getRestComponent()
 	 */
-	public Server getRestletServer() 
+	public Component getRestComponent() 
 	{
-		return this.restServer;
+		return this.restComponent;
 	}
 
 
@@ -436,7 +441,7 @@ public class DysonServer
 	{
 		return this.smtpServer.isRunning() || 
 			this.storage.isRunning() ||
-			this.restServer.isStarted();
+			this.restComponent.isStarted();
 	}
 
 	/**
@@ -456,8 +461,8 @@ public class DysonServer
 			this.storage.start();
 			log.info( "starting dyson SMTP component..." );
 			this.smtpServer.start();
-			log.info( "starting REST server..." );
-			this.restServer.start();
+			log.info( "starting REST component..." );
+			this.restComponent.start();
 		}
 		catch( Exception ex )
 		{
@@ -499,7 +504,7 @@ public class DysonServer
 				log.info( "stopping dyson REST component" );	
 				try
 				{
-					DysonServer.this.restServer.stop();
+					DysonServer.this.restComponent.stop();
 				}
 				catch( Exception ex )
 				{

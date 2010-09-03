@@ -18,22 +18,25 @@
  */
 package com.emarsys.dyson;
 
+import org.restlet.Application;
 import org.restlet.Restlet;
 
 /**
- * Super class for {@link Restlet}s that need access to the 
+ * Super class for for the concrete {@link Application}s that need access to the 
  * {@link DysonServer}.
  * 
  * @author <a href="mailto:kulovits@emarsys.com">Michael "kULO" Kulovits</a>
  */
-public class DysonRestlet extends Restlet implements DysonPart 
+public abstract class DysonRestApp extends Application implements DysonPart 
 {
+	public static final String ATTRIBUTE_DYSON_INSTANCE = "dyson.instance";
+	
 	protected final Dyson dyson;
 	
 	/**
 	 * 
 	 */
-	public DysonRestlet( Dyson dyson ) 
+	public DysonRestApp( Dyson dyson ) 
 	{
 		super();
 		this.dyson = dyson; 
@@ -43,5 +46,13 @@ public class DysonRestlet extends Restlet implements DysonPart
 	{
 		return this.dyson;
 	}
+
+	/**
+	 * Creates the root restlet.
+	 * 
+	 * Has to be defined in the concrete implementation of DysonRestApp.
+	 */
+	@Override
+	public abstract Restlet createRoot();
 	
 }//class DysonRestlet

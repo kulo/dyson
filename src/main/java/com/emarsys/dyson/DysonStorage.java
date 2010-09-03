@@ -27,22 +27,33 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.subethamail.smtp.MessageListener;
 
 import com.emarsys.ecommon.util.Assertions;
 import com.emarsys.ecommon.util.CollectionToStringBuilder;
 
 /**
  * <p>
- * The {@link DysonStorage} is responsible for persistently storing 
- * the messages delivered to dyson by providing a {@link MessageListener}
- * for dyson's SMTP component. 
+ * The {@link DysonStorage} is the service responsible for 
+ * persistently storing messages delivered to dyson. 
  * </p><p>
- * A {@link DysonStorage} always has to provide a public default 
- * constructor taking a {@link Dyson} instance.
+ * {@link DysonStorage} serves as an abstract super class for all
+ * possible implemenations.
+ * </p><p>
+ * Where the {@link DysonStorage} finally puts the mail files is 
+ * up to its concrete implementation as well as its associated 
+ * {@link MailStorageFileNamingScheme}.
+ * <br/>
+ * It's mandatory for all {@link DysonStorage} implementations to 
+ * separate the locations where incoming mails are stored/buffered/cached 
+ * from the place where the files are finally stored persistently.
+ * Said locations are called the {@link #getIncomingDirName() incoming} 
+ * and {@link #getProcessedDirName() processed} directories.
+ * </p><p>
+ * Like all {@link GenericDysonPart dyson parts} every implementation of
+ * {@link DysonStorage} has to provide a public default constructor taking 
+ * a {@link Dyson} instance.
  * </p><p>
  * 
- * TODO documentation
  * </p>
  * 
  * @author <a href="mailto:kulovits@emarsys.com">Michael "kULO" Kulovits</a>
@@ -53,7 +64,12 @@ public abstract class DysonStorage extends GenericDysonPart
 		LoggerFactory.getLogger( DysonStorage.class );
 	
 	/**
-	 * 
+	 * TODO implement an overall state for the dysonstorage
+	 * possible states (still to discuss):
+	 *  - accepting/idle //running, nothing to do
+	 *  - accepting/processing //running, currentyl (still processing mails)
+	 *  - finishing_up //still processing after a stop request, but not accepting more mails
+	 *  - stopped/not running
 	 */
 	public enum State
 	{
@@ -170,9 +186,9 @@ public abstract class DysonStorage extends GenericDysonPart
 		Collection<File> mailFiles = FileUtils.listFiles( 
 				dir, new String[] { this.getMailFileSuffix() }, true );
 
-		if( log.isDebugEnabled() )
+		if( log.isTraceEnabled() )
 		{
-			log.debug( 
+			log.trace( 
 					"got mail files in \'{}\': {}",
 					dir.getAbsolutePath(),
 					new CollectionToStringBuilder().appendAll( 

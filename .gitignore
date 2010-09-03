@@ -2,17 +2,17 @@
 # ignore the following files
 
 # sbt's managed libs dir
-lib_managed
+lib_managed/
 
 # sbt's project boot dir
-project/boot
+project/boot/
 
 # sbt's build targed dir
-project/build/target
+project/build/target/
 
 # sbt's targed directory
-target
+target/
 
 # local tmp directory
-tmp
+tmp/
 

@@ -73,11 +73,11 @@ public interface DysonConfig
 	/** Default port for the rest server: {@value #REST_SERVER_PORT_DEFAULT}*/
 	String REST_SERVER_PORT_DEFAULT = "1080";
 	
-	/** Specifies the concrete class that should be instanced as root restlet 
-	 *  for dyson's REST component */
-	String REST_SERVER_ROOT_RESTLET_CLASS = "dyson.rest.server.root.restlet.class";
-	/** The default root restlet class */
-	String REST_SERVER_ROOT_RESTLET_CLASS_DEFAULT = "com.emarsys.dyson.rest.DefaultRootRestlet";
+	/** Specifies the concrete class that should be instanced 
+	 * to run the application in dyson's REST component */
+	String REST_APPLICATION_CLASS = "dyson.rest.application.class";
+	/** The default restlet application class */
+	String REST_APPLICATION_CLASS_DEFAULT = "com.emarsys.dyson.rest.DefaultDysonRestApp";
 	
 	//SMTP server settings
 

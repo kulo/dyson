@@ -21,66 +21,67 @@ package com.emarsys.dyson.rest;
 import java.util.TreeSet;
 import java.util.Map.Entry;
 
-import org.restlet.Restlet;
-import org.restlet.Server;
+import org.restlet.Context;
 import org.restlet.data.MediaType;
 import org.restlet.data.Request;
 import org.restlet.data.Response;
+import org.restlet.resource.Representation;
+import org.restlet.resource.StringRepresentation;
+import org.restlet.resource.Variant;
 
-import com.emarsys.dyson.Dyson;
-import com.emarsys.dyson.DysonRestlet;
-import com.emarsys.dyson.DysonServer;
 import com.emarsys.ecommon.prefs.config.ISetting;
 
 /**
- * {@link DefaultRootRestlet} - nomen est omen: 
- * this {@link Restlet} will be instantiated on creation of 
- * {@link DysonServer} using its default constructor and be 
- * attached as root restlet to the Restlet {@link Server}.
- * 
- * @author <a href="mailto:kulovits@emarsys.com">Michael "kULO" Kulovits</a>
+ * @author kulo
  */
-public class DefaultRootRestlet extends DysonRestlet 
+public class RuntimeInformationResource extends DysonResource
 {
-	/**
-	 * 
-	 * @param dyson
-	 */
-	public DefaultRootRestlet( Dyson dyson ) 
-	{
-		super( dyson );
-	}
+	public RuntimeInformationResource(
+			Context context, Request request, Response response ) 
+	{  
+		super(context, request, response);    
+		getVariants().add(new Variant(MediaType.TEXT_PLAIN));  
+	}  
 
 	@Override
-	public void handle( Request request, Response response ) 
-	{   
+	public Representation represent( Variant variant ) 
+	{  
+		Representation result = null;  
+		if( variant.getMediaType().equals( MediaType.TEXT_PLAIN) ) 
+		{  
+			result = new StringRepresentation( this.getRuntimeInformation() );  
+		}  
+		return result;  
+	}  
+	
+	protected String getRuntimeInformation()
+	{
 		StringBuilder buf = new StringBuilder()
 		.append( "dyson runtime information\n" )
 		.append( "-------------------------\n\n" );
-		
+
 		for( Entry<String, String> entry : 
-			 this.dyson.getStatistics().getRuntimeInformation().entrySet() )
+			this.getDyson().getStatistics().getRuntimeInformation().entrySet() )
 		{
 			buf.append( entry ).append( '\n' );
 		}
-		
+
 		buf.append( '\n' )
 		.append( "dyson configuration\n" )
 		.append( "-------------------\n\n" );
-		
+
 		ISetting setting;
 		for( String name : new TreeSet<String>(
-				this.dyson.getConfiguration().getDeclaration().getSettingNames() ) )
+				this.getDyson().getConfiguration().getDeclaration().getSettingNames() ) )
 		{
-			setting = this.dyson.getConfiguration().get( name );
+			setting = this.getDyson().getConfiguration().get( name );
 			buf.append( name ).append( '=' )
 			.append( setting != null ? setting.getValue() : "null" )
 			.append( '\n' );
 		}
-		
-		buf.append( '\n' );
-		
-		response.setEntity( buf.toString(), MediaType.TEXT_PLAIN );   
-	}   
 
-}//class DefaultRootRestlet
+		buf.append( '\n' );
+		return buf.toString();
+	}
+	
+}//class RuntimeInformationResource

@@ -12,7 +12,7 @@ license is also included in the file 'COPYING'.
 Dyson's a simple mail server whose sole aim is to receive mails 
 over the SMTP protocol and to store them persistently as quickly as possible (sic!).
 
-The name "dyson" is inspired by [freeman dyson](http://en.wikipedia.org/wiki/Freeman_Dyson) 
+The name "dyson" is inspired by [Freeman Dyson](http://en.wikipedia.org/wiki/Freeman_Dyson) 
 and his theory of a [Dyson Sphere](href="http://en.wikipedia.org/wiki/Dyson_sphere), 
 i.e. a structure that is meant to completely encompass a star and capture most 
 or all of its energy output.
@@ -30,17 +30,22 @@ Think of the dyson MTA as a dyson sphere for mailing environments.
 
 ## How to run dyson?
 
+inside sbt:
+
   $> sbt run
   
-or 
+using the standalone jarjar: 
  
   $> ./dyson.sh
 
-see the javadocs of com.emarsys.Dyson for further details.
+see the javadocs of com.emarsys.Dyson for further details like cmd-line options 
+and (optional) configuration files.
 
 ## TODOs and Open Issues
 
- 1. TestNG Tests are not executed via sbt
- 2. ecommon is a static dependency via /lib/ecommon-TRUNK.jar
+ 1. TestNG test execution is not working via sbt
+ 2. The emarsys commons library eCommon is a static dependency via /lib/ecommon-DYSON.jar
+ 2.1. eCommon will be released under the LGPL on github later this year
+ 3. TODO 
  
  
