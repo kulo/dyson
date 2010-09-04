@@ -1,9 +1,9 @@
 # dyson - an absorbing SMTP server
 
-version 1.1.beta, currently under development, 2010
+version 1.1, 2010-09-04
 
 This software is distributed under the terms of the FSF Lesser Gnu
-Public License (see COPYING.LESSER and COPYING). Since the LGPL 
+Public License (version 3, see COPYING.LESSER and COPYING). Since the LGPL 
 is a set of additional permissions on top of the GPL this 
 license is also included in the file 'COPYING'.
 
@@ -41,11 +41,37 @@ using the standalone jarjar:
 see the javadocs of com.emarsys.Dyson for further details like cmd-line options 
 and (optional) configuration files.
 
-## TODOs and Open Issues
+## TODOs, Open and Known Issues
 
- 1. TestNG test execution is not working via sbt
- 2. The emarsys commons library eCommon is a static dependency via /lib/ecommon-DYSON.jar
- 2.1. eCommon will be released under the LGPL on github later this year
- 3. TODO 
+### Dependencies
+
+#### emarsys commons library: eCommon
+
+The emarsys commons library eCommon is a static dependency via 
+/lib/ecommon-DYSON.jar. eCommon will be released under the 
+LGPL on github later this year
+
+### Build System
+
+Dyson's build system has been migrated from maven (and buildr) to SBT. 
+This transition is not yet done and thus there are a couple of issues:
  
+ 1. The whole build system configuration and plugins (see /project/build/*.scala)
+    is copy pasted from internal emarsys projects. Reusable parts of dyson's 
+    build system have to be refactored into a free "emarsys project plugin" 
+    project. this is unlikely to happen before the LGPL release of ecommon.
+ 2. TestNG test execution is not working via sbt. There is a custom
+ 	SBT plugin (see /project/build/TestNGTestingProject.scala) which is 
+ 	currently not working. Either fix the SBT TestNG plugin or migrate the
+ 	test case(s) to ScalaTest.  
+ 3. Javadoc generation via sbt does not work. scaladoc is insufficient.
+ 4. Eclipse integration is very basic. Dyson's got its own version of
+    the SBT plugin Eclipsify which creates Eclipse's .project and
+    .classpath files but for instance lacks the incllacks the inclusion
+    of the JRE libs, etc. etc.
  
+### Logging
+
+Dyson's RESTlet server's logging is not integrated with dyson's logging
+concept. The restlet engine logs via java.util.logging. It should be possible 
+to integrate via slf4j's bridge, see http://www.slf4j.org/legacy.html.

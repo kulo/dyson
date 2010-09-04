@@ -39,7 +39,7 @@ public abstract class DysonRestApp extends Application implements DysonPart
 	public DysonRestApp( Dyson dyson ) 
 	{
 		super();
-		this.dyson = dyson; 
+		this.dyson = dyson;
 	}
 
 	public Dyson getDyson() 
@@ -48,11 +48,39 @@ public abstract class DysonRestApp extends Application implements DysonPart
 	}
 
 	/**
+	 * adds the {@link #getDyson() dyson} instance as context 
+	 * attribute which will be used by DysonResources
+	 */
+	protected void addDysonInstanceToContextAttributes()
+	{
+		this.getContext().getAttributes().put( 
+				ATTRIBUTE_DYSON_INSTANCE, this.getDyson() );
+	}
+
+	/**
+	 * <p>
 	 * Creates the root restlet.
-	 * 
-	 * Has to be defined in the concrete implementation of DysonRestApp.
+	 * </p><p>
+	 * Contains {@link #doCreateRoot()} as hook for concrete subclasses.
+	 * </p><p>
+	 * {@link #addDysonInstanceToContextAttributes() Adds} the 
+	 * {@link #getDyson()} instance to the {@link #getContext() Restlet
+	 * Context} before delegating the creation of the root restlet to
+	 * {@link #doCreateRoot()}.
+	 * </p>
 	 */
 	@Override
-	public abstract Restlet createRoot();
+	public Restlet createRoot()
+	{
+		this.addDysonInstanceToContextAttributes();
+		return this.doCreateRoot();
+	}
+
+	/**
+	 * Has to be defined in the concrete implementation of {@link DysonRestApp}.
+	 * 
+	 * @see #createRoot()
+	 */
+	protected abstract Restlet doCreateRoot();
 	
 }//class DysonRestlet

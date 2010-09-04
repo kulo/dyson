@@ -1,6 +1,9 @@
 
 # ignore the following files
 
+#temporary or backup files
+*.bak
+
 # sbt's managed libs dir
 lib_managed/
 
@@ -16,3 +19,6 @@ target/
 # local tmp directory
 tmp/
 
+# eclipse's .project and .classpath files
+.project
+.classpath

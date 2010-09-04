@@ -1,5 +1,20 @@
 /**
+ *   (c) Copyright 2007-2010 by emarsys eMarketing Systems AG
  * 
+ *   This file is part of dyson.
+ *
+ *   dyson is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published by
+ *   the Free Software Foundation; either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   dyson is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU Lesser General Public License for more details.
+ *
+ *   You should have received a copy of the GNU Lesser General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.emarsys.dyson.rest;
 
@@ -50,15 +65,10 @@ public class DefaultDysonRestApp extends DysonRestApp
 	 * @see com.emarsys.dyson.DysonRestApp#createRoot()
 	 */
 	@Override
-	public Restlet createRoot() 
+	public Restlet doCreateRoot() 
 	{
 		Context context = this.getContext();
 		
-		//add the Dyson instance as context attribute
-		//which will be used by DysonResources
-		this.getContext().getAttributes().put( 
-				ATTRIBUTE_DYSON_INSTANCE, this.getDyson() );
-
 		//the root restlet is a router which dispatches the requests to the 
 		//concrete DysonResources
 		Router router = new Router( context );
@@ -95,7 +105,7 @@ public class DefaultDysonRestApp extends DysonRestApp
 		directory.setListingAllowed( true );
 		directory.setModifiable( true );
 		
-		log.info( "got directory for {}: {}", path, directory );
+		log.debug( "got access to directory {} via REST", path );
 		
 		return directory;
 	}
