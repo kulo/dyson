@@ -1,11 +1,13 @@
 # dyson - an absorbing SMTP server
 
-version 1.1, 2010-09-04
+Version 1.1, 2010-09-04
 
 This software is distributed under the terms of the FSF Lesser Gnu
 Public License (version 3, see COPYING.LESSER and COPYING). Since the LGPL 
 is a set of additional permissions on top of the GPL this 
 license is also included in the file 'COPYING'.
+
+Maintainer: [Michael Kulovits](mailto:kulovits@emarsys.com)
 
 ## What is dyson?
 
