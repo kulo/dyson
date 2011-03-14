@@ -1,7 +1,8 @@
 #!/bin/bash
 
 ##
-## example shell script on how to start a DysonServer
+## a simple shell script which runs com.emarsys.ecommon.mail.test.SmtpBomber in order to generate and send mails for testing purposes.
+## you might use this script to load test dyson.
 ##
 
 # find jarjar
