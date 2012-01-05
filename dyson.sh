@@ -17,9 +17,8 @@ fi
 
 #see javadoc of DysonConfig for more configuration options
 java -cp $JAR \
-  -Ddyson.smtp.server.port=1025
+  -Ddyson.smtp.server.port=1025 \
   -Ddyson.smtp.max.connections=1000 \
   -Ddyson.smpt.discard.recipients.enabled=false \
-  $@ \  
-  com.emarsys.dyson.DysonServer
+  "$@" com.emarsys.dyson.DysonServer
 

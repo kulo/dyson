@@ -1,7 +1,8 @@
 #!/bin/bash
 
 ##
-## example shell script on how to start a DysonServer
+## helper shell script to use the eCommon SmtpBomber 
+##   for load testing a (dyson) SMTP server 
 ##
 
 # find jarjar
