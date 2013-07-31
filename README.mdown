@@ -22,6 +22,7 @@ Think of the dyson MTA as a dyson sphere for mailing environments.
 
 ## How to build dyson?
 
+  $> sbt update ## only one time to update sbt
   $> sbt clean compile package jarjar
 
 ### Dependencies & Requirements
