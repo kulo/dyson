@@ -114,6 +114,8 @@ public class IncomingStorageMessageListener extends DysonMessageListener
 		{
 			log.debug( "discarded mail to \"{}\" from \"{}\"", recipient, from );
 			this.getDyson().getStatistics().fire( MailEvent.MAIL_DISCARDED );
+
+			IOUtil.silentClose( data );
 			return;
 		}
 
