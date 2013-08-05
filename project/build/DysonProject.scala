@@ -20,9 +20,9 @@ import sbt._
 	    val mail = "javax.mail" % "mail" % "1.4.2"
 	    val activation = "javax.activation" % "activation" % "1.1.1"
 	    
-	    val slf4j_api = "org.slf4j" % "slf4j-api" % "1.5.5"
-	    val slf4j_log4j12 = "org.slf4j" % "slf4j-log4j12" % "1.5.5"
-	    val slf4j_jcl = "org.slf4j" % "slf4j-jcl" % "1.5.5"
+	    val slf4j_api = "org.slf4j" % "slf4j-api" % "1.6.1"
+	    val slf4j_log4j12 = "org.slf4j" % "slf4j-log4j12" % "1.6.1"
+	    val slf4j_jcl = "org.slf4j" % "slf4j-jcl" % "1.6.1"
 	
 	    val subethasmtp = "org.subethamail" % "subethasmtp" % "2.1.0"
 	    
